@@ -1,25 +1,40 @@
-import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMenuBar
+from PyQt6.QtGui import QAction, QIcon
+from PyQt6.QtCore import QSize, Qt
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("My App")
+        self.setWindowTitle("Bbox2Mask")
 
-        button = QPushButton("Press Me!")
-        button.setCheckable(True)
-        button.clicked.connect(self.the_button_was_clicked)
+        menu = self.menuBar()
 
-        # Set the central widget of the Window.
-        self.setCentralWidget(button)
+        button_add_dataset = QAction("Add &Dataset", self)
+        button_add_image = QAction("Add &Image", self)
+        button_add_annotation = QAction("Add &Annotation", self)
 
-    def the_button_was_clicked(self):
-        print("Clicked!")
+        buton_draw = QAction("&Draw", self)
+        button_remove_image = QAction("&Remove Image", self)
+
+        file_menu = menu.addMenu("&File")
+
+        file_menu.addAction(button_add_dataset)
+        file_menu.addAction(button_add_image)
+        file_menu.addAction(button_add_annotation)
+ 
+        edit_menu = menu.addMenu("&Edit")
+
+        edit_menu.addAction(buton_draw)
+        edit_menu.addAction(button_remove_image)
+
+        
+
+        
 
 
-app = QApplication(sys.argv)
+app = QApplication([])
 
 window = MainWindow()
 window.show()
