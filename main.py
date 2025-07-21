@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMenuBar, QLabel
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMenuBar, QLabel, QWidget, QHBoxLayout, QVBoxLayout
 from PyQt6.QtGui import QAction, QIcon, QPixmap
 from PyQt6.QtCore import QSize, Qt
 
@@ -30,11 +30,38 @@ class MainWindow(QMainWindow):
         edit_menu.addAction(button_remove_image)
 
         image_canvas = QLabel(self)
-        pixmap = QPixmap("test.png")
-        image_canvas.setPixmap(pixmap)
-        self.setCentralWidget(image_canvas)
-        self.resize(pixmap.width(), pixmap.height())
+        #pixmap = QPixmap("test.png")
+        #image_canvas.setPixmap(pixmap)
+        #self.setCentralWidget(image_canvas)
+        #self.resize(pixmap.width(), pixmap.height())
 
+        layout = QVBoxLayout()
+        navigation = BottomNavigation()
+        layout.addWidget(image_canvas)
+        layout.addWidget(navigation)
+
+        widget = QWidget()
+        widget.setLayout(layout)
+        self.setCentralWidget(widget)
+
+        
+
+class BottomNavigation(QWidget):
+    def __init__(self):
+        super().__init__()
+        back_button = QPushButton(self)
+        next_button = QPushButton(self)
+
+        back_button.setText("<-")
+        next_button.setText("->")
+
+        layout = QHBoxLayout()
+
+        layout.addWidget(back_button)
+        layout.addWidget(next_button)
+
+        self.setLayout(layout)
+        
         
 
         
