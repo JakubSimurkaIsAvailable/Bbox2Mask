@@ -1,5 +1,5 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMenuBar
-from PyQt6.QtGui import QAction, QIcon
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMenuBar, QLabel
+from PyQt6.QtGui import QAction, QIcon, QPixmap
 from PyQt6.QtCore import QSize, Qt
 
 
@@ -28,6 +28,12 @@ class MainWindow(QMainWindow):
 
         edit_menu.addAction(buton_draw)
         edit_menu.addAction(button_remove_image)
+
+        image_canvas = QLabel(self)
+        pixmap = QPixmap("test.png")
+        image_canvas.setPixmap(pixmap)
+        self.setCentralWidget(image_canvas)
+        self.resize(pixmap.width(), pixmap.height())
 
         
 
