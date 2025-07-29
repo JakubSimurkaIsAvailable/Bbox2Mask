@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMenuBar, QLabel, QWidget, QHBoxLayout, QVBoxLayout
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMenuBar, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QSlider
 from PyQt6.QtGui import QAction, QIcon, QPixmap
 from PyQt6.QtCore import QSize, Qt
 
@@ -35,12 +35,23 @@ class MainWindow(QMainWindow):
         image_canvas.setPixmap(scaled_pixmap)
         self.setCentralWidget(image_canvas)
         
-
-        layout = QVBoxLayout()
-        navigation = BottomNavigation()
-        layout.addWidget(image_canvas)
-        layout.addWidget(navigation)
-
+        class MainLayout(QWidget):
+            def __init__(self):
+                super().__init__()
+                
+                layout = QVBoxLayout()
+                navigation = BottomNavigation()
+                
+                layout.addWidget(image_canvas)
+                layout.addWidget(navigation)
+                
+                self.setLayout(layout)
+        
+        mainW = MainLayout()
+        sidebar = Sidebar()
+        layout = QHBoxLayout()
+        layout.addWidget(mainW)
+        layout.addWidget(sidebar)
         widget = QWidget()
         widget.setLayout(layout)
         self.setCentralWidget(widget)
@@ -63,9 +74,36 @@ class BottomNavigation(QWidget):
 
         self.setLayout(layout)
         
+class Sidebar(QWidget):
+    def __init__(self):
+        super().__init__()
+        
+        
+        size_slider = QSlider(Qt.Orientation.Horizontal, self)
+        size_slider.orientation()
+        
+        class SidebarButtons(QWidget):
+            def __init__(self):
+                super().__init__()
+                draw_button = QPushButton(self)
+                erase_button = QPushButton(self)
+        
+                draw_button.setText("draw")
+                erase_button.setText("erase")
+                layoutButtons = QHBoxLayout()
+                layoutButtons.addWidget(draw_button)
+                layoutButtons.addWidget(erase_button)
+                
+                self.setLayout(layoutButtons)
+        
+        layout = QVBoxLayout()
+        sideB = SidebarButtons()
+        layout.addWidget(sideB)
+        layout.addWidget(size_slider)         
+
+        self.setLayout(layout)
         
 
-        
 
 
 app = QApplication([])
