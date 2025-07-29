@@ -30,10 +30,11 @@ class MainWindow(QMainWindow):
         edit_menu.addAction(button_remove_image)
 
         image_canvas = QLabel(self)
-        #pixmap = QPixmap("test.png")
-        #image_canvas.setPixmap(pixmap)
-        #self.setCentralWidget(image_canvas)
-        #self.resize(pixmap.width(), pixmap.height())
+        pixmap = QPixmap("testimage.jpg")
+        scaled_pixmap = pixmap.scaled(400, 400, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+        image_canvas.setPixmap(scaled_pixmap)
+        self.setCentralWidget(image_canvas)
+        
 
         layout = QVBoxLayout()
         navigation = BottomNavigation()
